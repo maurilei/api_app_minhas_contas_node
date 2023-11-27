@@ -47,11 +47,12 @@ router.post("/cadastrar", login.logintoken, (req, res, next) => {
               return res.status(500).send({ error: errBcrypt });
             }
             conn.query(
-              `INSERT INTO usuarios (nome, telefone, email, senha) VALUES (? ,?, ?, ?)`,
+              `INSERT INTO usuarios (nome, telefone, email, admin, senha) VALUES (? ,?, ?, ?, ?)`,
               [
                 req.body.nome,
                 req.body.telefone,
                 req.body.email,
+                req.body.admin,
                 hash,
               ],
               (error, results) => {
@@ -109,7 +110,8 @@ router.post("/login", (req, res, next) => {
             },
             process.env.JWT_KEY,
             {
-              expiresIn: "1d"
+              expiresIn: "7d"
+              //expiresIn: "60"
             }
           );
 
@@ -195,12 +197,12 @@ router.patch("/atualizar", login.logintoken, (req, res, next) => {
         return res.status(500).send({ error: error });
       }
       conn.query(
-        `UPDATE usuarios SET nome = ?, telefone = ?, email = ?, nivel = ? WHERE id = ?`,
+        `UPDATE usuarios SET nome = ?, telefone = ?, email = ?, admin = ? WHERE id = ?`,
         [
           req.body.nome,
           req.body.telefone,
           req.body.email,
-          req.body.nivel,
+          req.body.admin,
           req.body.id
         ],
         (error, resultado, field) => {
@@ -214,7 +216,7 @@ router.patch("/atualizar", login.logintoken, (req, res, next) => {
             nome: req.body.nome,
             email: req.body.email,
             telefone: req.body.telefone,
-            nivel: req.body.nivel
+            admin: req.body.admin
           };
           //console.log(response);
           return res.status(200).send(response);
@@ -233,13 +235,13 @@ router.patch("/atualizar", login.logintoken, (req, res, next) => {
           return res.status(500).send({ error: errBcrypt });
         }
         conn.query(
-          `UPDATE usuarios SET nome = ?, telefone = ?, email = ?, senha = ?, nivel = ? WHERE id = ?`,
+          `UPDATE usuarios SET nome = ?, telefone = ?, email = ?, senha = ?, admin = ? WHERE id = ?`,
           [
             req.body.nome,
             req.body.telefone,
             req.body.email,
             hash,
-            req.body.nivel,
+            req.body.admin,
             req.body.id
           ],
           (error, resultado, field) => {
@@ -253,7 +255,7 @@ router.patch("/atualizar", login.logintoken, (req, res, next) => {
               nome: req.body.nome,
               email: req.body.email,
               telefone: req.body.telefone,
-              nivel: req.body.nivel
+              admin: req.body.admin
             };
             //console.log(response);
             return res.status(200).send(response);

@@ -48,6 +48,7 @@ CREATE TABLE `usuarios` (
   `nome` varchar(150) NOT NULL,
   `email` varchar(200) NOT NULL,
   `telefone` varchar(20) NOT NULL,
+  `admin` varchar(20) NOT NULL,
   `senha` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -55,8 +56,8 @@ CREATE TABLE `usuarios` (
 -- Despejando dados para a tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nome`, `email`, `telefone`, `senha`) VALUES
-(1, 'Administrador', 'admin@admin.com', '(12)9 9999-9999', '$2y$10$A8MZT.dtdoq3RLBU49HtB.AzM..h9Q78FJ2i72PCCPQr4s2untMkG');
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `telefone`, `admin`, `senha`) VALUES
+(1, 'Administrador', 'admin@admin.com', '(12)9 9999-9999', 'admin', '$2y$10$A8MZT.dtdoq3RLBU49HtB.AzM..h9Q78FJ2i72PCCPQr4s2untMkG');
 
 --
 -- Índices para tabelas despejadas
